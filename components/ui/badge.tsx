@@ -4,11 +4,11 @@ import { type RecipeVariants } from "@vanilla-extract/recipes"
 import { cn } from "@/lib/utils"
 import { badge } from "./badge.css"
 
-type BadgeVariants = RecipeVariants<typeof badge>;
+type BadgeVariants = NonNullable<RecipeVariants<typeof badge>>;
 
-export interface BadgeProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    BadgeVariants {}
+export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
+  variant?: BadgeVariants['variant'];
+}
 
 function Badge({ className, variant, ...props }: BadgeProps) {
   return (

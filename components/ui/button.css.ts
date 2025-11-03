@@ -1,3 +1,4 @@
+import { globalStyle } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 import { themeContract } from '@/styles/theme.css';
 
@@ -18,23 +19,13 @@ export const button = recipe({
       pointerEvents: 'none',
       opacity: themeContract.opacity[50],
     },
+    ':focus-visible': {
+      outlineWidth: '1px',
+      outlineStyle: 'solid',
+      outlineColor: `${themeContract.color.ring}80`,
+      boxShadow: `0 0 0 4px ${themeContract.color.ring}1a`,
+    },
     selectors: {
-      '&[data-slot="button"] svg': {
-        pointerEvents: 'none',
-      },
-      '&[data-slot="button"] svg:not([class*="size-"])': {
-        width: themeContract.spacing[4],
-        height: themeContract.spacing[4],
-      },
-      '&[data-slot="button"] svg': {
-        flexShrink: '0',
-      },
-      '&:focus-visible': {
-        outlineWidth: '1px',
-        outlineStyle: 'solid',
-        outlineColor: `${themeContract.color.ring}80`,
-        boxShadow: `0 0 0 4px ${themeContract.color.ring}1a`,
-      },
       '&[aria-invalid="true"]:focus-visible': {
         boxShadow: 'none',
       },
@@ -141,4 +132,15 @@ export const button = recipe({
     variant: 'default',
     size: 'default',
   },
+});
+
+// Global styles for button SVG children
+globalStyle('[data-slot="button"] svg', {
+  pointerEvents: 'none',
+  flexShrink: '0',
+});
+
+globalStyle('[data-slot="button"] svg:not([class*="size-"])', {
+  width: themeContract.spacing[4],
+  height: themeContract.spacing[4],
 });

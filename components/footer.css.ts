@@ -1,4 +1,4 @@
-import { style } from '@vanilla-extract/css';
+import { globalStyle, style } from '@vanilla-extract/css';
 import { themeContract } from '@/styles/theme.css';
 
 export const footer = style({
@@ -65,10 +65,9 @@ export const copyrightText = style({
   color: `${themeContract.color.foreground}99`,
 });
 
-export const copyrightContent = style({
-  selectors: {
-    '& p': {
-      margin: '0 !important',
-    },
-  },
+export const copyrightContent = style({});
+
+// Global style for nested p tags
+globalStyle(`${copyrightContent} p`, {
+  margin: '0 !important',
 });

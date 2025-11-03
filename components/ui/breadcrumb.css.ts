@@ -1,4 +1,4 @@
-import { style } from '@vanilla-extract/css';
+import { globalStyle, style } from '@vanilla-extract/css';
 import { themeContract } from '@/styles/theme.css';
 import { srOnly } from '@/styles/utils.css';
 
@@ -35,13 +35,12 @@ export const breadcrumbPage = style({
   fontWeight: themeContract.fontWeight.normal,
 });
 
-export const breadcrumbSeparator = style({
-  selectors: {
-    '& > svg': {
-      width: themeContract.spacing[3.5],
-      height: themeContract.spacing[3.5],
-    },
-  },
+export const breadcrumbSeparator = style({});
+
+// Global style for SVG children
+globalStyle(`${breadcrumbSeparator} > svg`, {
+  width: themeContract.spacing[3.5],
+  height: themeContract.spacing[3.5],
 });
 
 export const breadcrumbEllipsis = style({

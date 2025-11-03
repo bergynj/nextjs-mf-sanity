@@ -1,4 +1,4 @@
-import { style } from '@vanilla-extract/css';
+import { globalStyle, style } from '@vanilla-extract/css';
 import { themeContract } from '@/styles/theme.css';
 import { animateAccordionDown, animateAccordionUp } from '@/styles/utils.css';
 
@@ -39,11 +39,10 @@ export const accordionTrigger = style({
     pointerEvents: 'none',
     opacity: themeContract.opacity[50],
   },
-  selectors: {
-    '&[data-state="open"] > svg': {
-      transform: 'rotate(180deg)',
-    },
-  },
+});
+
+export const accordionTriggerOpen = style({
+  // Applied when accordion is open
 });
 
 export const accordionHeader = style({
@@ -76,4 +75,9 @@ export const chevronIcon = style({
   flexShrink: '0',
   transform: 'translateY(0.125rem)',
   transition: 'transform 0.2s',
+});
+
+// Handle open state rotation via global style
+globalStyle(`${accordionTrigger}[data-state="open"] svg`, {
+  transform: 'rotate(180deg) translateY(0.125rem)',
 });
