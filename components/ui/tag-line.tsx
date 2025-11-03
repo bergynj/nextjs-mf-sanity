@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { tagLine } from "./tag-line.css";
 
 export default function TagLine({
   title,
@@ -13,12 +14,7 @@ export default function TagLine({
   const TagElement = element;
 
   return (
-    <TagElement
-      className={cn(
-        "inline-block leading-[0] text-base font-semibold",
-        className
-      )}
-    >
+    <TagElement className={cn(tagLine, className)}>
       {title}
     </TagElement>
   );

@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { SectionPadding, ColorVariant } from "@/sanity.types";
+import * as styles from "./section-container.css";
 
 interface SectionContainerProps {
   color?: ColorVariant | null;
@@ -17,13 +18,14 @@ export default function SectionContainer({
   return (
     <div
       className={cn(
-        `bg-${color} relative`,
-        padding?.top ? "pt-16 xl:pt-20" : undefined,
-        padding?.bottom ? "pb-16 xl:pb-20" : undefined,
+        styles.sectionBase,
+        color && styles.colorVariants[color as keyof typeof styles.colorVariants],
+        padding?.top && styles.sectionPaddingTop,
+        padding?.bottom && styles.sectionPaddingBottom,
         className
       )}
     >
-      <div className="container">{children}</div>
+      <div className={styles.container}>{children}</div>
     </div>
   );
 }

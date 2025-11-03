@@ -1,5 +1,6 @@
 import { Star, StarHalf } from "lucide-react";
 import { cn } from "@/lib/utils";
+import * as styles from "./star-rating.css";
 
 export function StarRating({
   size = "sm",
@@ -12,16 +13,13 @@ export function StarRating({
   const hasHalfStar = rating % 1 !== 0;
 
   return (
-    <div className="flex gap-1">
+    <div className={styles.starContainer}>
       {[...Array(5)].map((_, i) => {
         if (i < fullStars) {
           return (
             <Star
               key={i}
-              className={cn(
-                "w-4 h-4 fill-yellow-400 text-yellow-400",
-                size === "lg" && "w-8 h-8"
-              )}
+              className={cn(styles.starSize[size], styles.starFilled)}
             />
           );
         }
@@ -29,14 +27,16 @@ export function StarRating({
           return (
             <StarHalf
               key={i}
-              className={cn(
-                "w-4 h-4 fill-yellow-400 text-yellow-400",
-                size === "lg" && "w-8 h-8"
-              )}
+              className={cn(styles.starSize[size], styles.starFilled)}
             />
           );
         }
-        return <Star key={i} className="w-4 h-4 text-gray-300" />;
+        return (
+          <Star
+            key={i}
+            className={cn(styles.starSize.sm, styles.starEmpty)}
+          />
+        );
       })}
     </div>
   );
