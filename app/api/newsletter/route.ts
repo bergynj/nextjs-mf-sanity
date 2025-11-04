@@ -1,7 +1,9 @@
 import { Resend } from "resend";
 
 const isResendDisabled = process.env.DISABLE_RESEND === "true";
-const resend = !isResendDisabled ? new Resend(process.env.RESEND_API_KEY) : null;
+const resend = !isResendDisabled && process.env.RESEND_API_KEY 
+  ? new Resend(process.env.RESEND_API_KEY) 
+  : null;
 
 export const POST = async (request: Request) => {
   const { email } = await request.json();
