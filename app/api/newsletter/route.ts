@@ -6,8 +6,8 @@ const resend = !isResendDisabled ? new Resend(process.env.RESEND_API_KEY) : null
 export const POST = async (request: Request) => {
   const { email } = await request.json();
 
-  // Check if Resend is disabled
-  if (isResendDisabled) {
+  // Check if Resend is disabled or not properly configured
+  if (isResendDisabled || !resend) {
     return Response.json(
       { error: "Newsletter subscription is currently unavailable" },
       { status: 503 }
@@ -16,7 +16,7 @@ export const POST = async (request: Request) => {
 
   // Create contact
   try {
-    resend!.contacts.create({
+    resend.contacts.create({
       email,
       unsubscribed: false,
       audienceId: process.env.RESEND_AUDIENCE_ID!,
