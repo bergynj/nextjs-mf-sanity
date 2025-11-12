@@ -38,9 +38,8 @@ const envSchema = z.object({
   // Resend Configuration (Optional)
   DISABLE_RESEND: z
     .string()
-    .optional()
-    .transform((val) => val === "true")
-    .default("false"),
+    .default("false")
+    .transform((val) => val === "true"),
   RESEND_API_KEY: z.string().optional(),
   RESEND_AUDIENCE_ID: z.string().optional(),
 });
