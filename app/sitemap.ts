@@ -1,6 +1,7 @@
 import { MetadataRoute } from "next";
 import { groq } from "next-sanity";
 import { sanityFetch } from "@/sanity/lib/live";
+import { env } from "@/lib/env";
 
 async function getPagesSitemap(): Promise<MetadataRoute.Sitemap[]> {
   const pagesQuery = groq`
@@ -18,7 +19,7 @@ async function getPagesSitemap(): Promise<MetadataRoute.Sitemap[]> {
   const { data } = await sanityFetch({
     query: pagesQuery,
     params: {
-      baseUrl: process.env.NEXT_PUBLIC_SITE_URL,
+      baseUrl: env.NEXT_PUBLIC_SITE_URL,
     },
   });
 
@@ -38,7 +39,7 @@ async function getPostsSitemap(): Promise<MetadataRoute.Sitemap[]> {
   const { data } = await sanityFetch({
     query: postsQuery,
     params: {
-      baseUrl: process.env.NEXT_PUBLIC_SITE_URL,
+      baseUrl: env.NEXT_PUBLIC_SITE_URL,
     },
   });
 

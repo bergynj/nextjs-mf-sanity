@@ -1,15 +1,15 @@
 import { Resend } from "resend";
+import { env } from "@/lib/env";
 
-const isResendDisabled = process.env.DISABLE_RESEND === "true";
-const resend = !isResendDisabled && process.env.RESEND_API_KEY 
-  ? new Resend(process.env.RESEND_API_KEY) 
+const resend = !env.DISABLE_RESEND && env.RESEND_API_KEY 
+  ? new Resend(env.RESEND_API_KEY) 
   : null;
 
 export const POST = async (request: Request) => {
   const { email } = await request.json();
 
   // Check if Resend is disabled or not properly configured
-  if (isResendDisabled || !resend) {
+  if (env.DISABLE_RESEND || !resend || !env.RESEND_AUDIENCE_ID) {
     return Response.json(
       { error: "Newsletter subscription is currently unavailable" },
       { status: 503 }
@@ -21,7 +21,7 @@ export const POST = async (request: Request) => {
     resend.contacts.create({
       email,
       unsubscribed: false,
-      audienceId: process.env.RESEND_AUDIENCE_ID!,
+      audienceId: env.RESEND_AUDIENCE_ID,
     });
 
     return Response.json({ success: true });
