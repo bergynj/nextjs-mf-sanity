@@ -1,9 +1,20 @@
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const isResendDisabled = process.env.DISABLE_RESEND === "true";
+const resend = !isResendDisabled && process.env.RESEND_API_KEY 
+  ? new Resend(process.env.RESEND_API_KEY) 
+  : null;
 
 export const POST = async (request: Request) => {
   const { email } = await request.json();
+
+  // Check if Resend is disabled or not properly configured
+  if (isResendDisabled || !resend) {
+    return Response.json(
+      { error: "Newsletter subscription is currently unavailable" },
+      { status: 503 }
+    );
+  }
 
   // Create contact
   try {

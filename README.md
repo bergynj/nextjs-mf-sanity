@@ -104,6 +104,16 @@ To use the newsletter form, you need to configure Resend.
 3. Copy the [audience](https://resend.com/audiences) id
 4. Set the API key and audience ID in the Vercel project settings or in the `.env.local` file
 
+#### Disabling Resend
+
+If you want to build the application without configuring Resend, you can disable it by setting the `DISABLE_RESEND` environment variable to `true`:
+
+```bash
+DISABLE_RESEND=true
+```
+
+When disabled, the newsletter form will still render but will return a graceful error message when users attempt to subscribe. This allows the application to build successfully without requiring Resend credentials.
+
 ## Sanity TypeGen
 
 To generate the types, run the following command:
@@ -132,6 +142,7 @@ All environment variables and their descriptions:
 - `NEXT_PUBLIC_SANITY_PROJECT_ID` - your Sanity project ID. For example, abc12345.
 - `NEXT_PUBLIC_SANITY_DATASET` - your Sanity dataset name. For example, production.
 - `SANITY_API_READ_TOKEN` - your Sanity read token for Next.js to fetch data.
+- `DISABLE_RESEND` - set to `true` to disable Resend email integration. Allows building the app without Resend credentials. Defaults to `false`.
 - `RESEND_API_KEY` - your RESEND api key for the newsletter form.
 - `RESEND_AUDIENCE_ID` - your RESEND audience id for the newsletter form to store contacts.
 
