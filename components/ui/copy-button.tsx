@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { Copy, Check } from "lucide-react";
-import * as styles from "./copy-button.css";
 
 interface CopyButtonProps {
   code: string;
@@ -19,14 +18,14 @@ export function CopyButton({ code }: CopyButtonProps) {
 
   return (
     <button
-      className={styles.copyButton}
+      className="p-2 rounded-md transition-colors hover:bg-muted-foreground/10"
       onClick={copy}
       aria-label="Copy code"
     >
       {isCopied ? (
-        <Check className={styles.checkIcon} />
+        <Check className="h-4 w-4 text-green-500" />
       ) : (
-        <Copy className={styles.copyIcon} />
+        <Copy className="h-4 w-4 text-muted-foreground" />
       )}
     </button>
   );

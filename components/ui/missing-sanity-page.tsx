@@ -1,6 +1,4 @@
 import { Badge } from "@/components/ui/badge";
-import * as styles from "./missing-sanity-page.css";
-import { cn } from "@/lib/utils";
 
 export default function MissingSanityPage({
   document,
@@ -10,15 +8,15 @@ export default function MissingSanityPage({
   slug: string;
 }) {
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.container}>
-        <h1 className={styles.heading}>
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="container">
+        <h1 className="text-center text-2xl">
           Missing{" "}
-          <Badge variant="outline" className={styles.badgeText}>
+          <Badge variant="outline" className="text-lg">
             {document}
           </Badge>{" "}
           document with slug{" "}
-          <Badge variant="outline" className={styles.badgeText}>
+          <Badge variant="outline" className="text-lg">
             {slug}
           </Badge>{" "}
           in Sanity Studio

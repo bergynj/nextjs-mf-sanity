@@ -9,7 +9,6 @@ import {
 import Link from "next/link";
 
 import { BreadcrumbLink as BreadcrumbLinkType } from "@/types";
-import * as styles from "./breadcrumbs.css";
 
 const BreadcrumbCustomItem = ({
   label,
@@ -18,16 +17,16 @@ const BreadcrumbCustomItem = ({
 }: BreadcrumbLinkType & { isCurrent?: boolean }) => {
   return (
     <>
-      <BreadcrumbItem className={styles.breadcrumbItemPrimary}>
+      <BreadcrumbItem className="font-bold text-primary">
         {!isCurrent ? (
-          <BreadcrumbLink className={styles.breadcrumbLinkHover} asChild>
+          <BreadcrumbLink className="hover:text-primary/70" asChild>
             <Link href={href}>{label}</Link>
           </BreadcrumbLink>
         ) : (
           <BreadcrumbPage>{label}</BreadcrumbPage>
         )}
       </BreadcrumbItem>
-      {!isCurrent && <BreadcrumbSeparator className={styles.breadcrumbSeparatorPrimary} />}
+      {!isCurrent && <BreadcrumbSeparator className="text-primary" />}
     </>
   );
 };
@@ -38,7 +37,7 @@ export default function Breadcrumbs({
   links: BreadcrumbLinkType[];
 }) {
   return (
-    <Breadcrumb className={styles.breadcrumbsContainer}>
+    <Breadcrumb className="mb-3 lg:mb-6">
       <BreadcrumbList>
         {links.map((link, index) => (
           <BreadcrumbCustomItem
