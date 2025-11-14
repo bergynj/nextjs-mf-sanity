@@ -1,0 +1,27 @@
+{
+  "name": "@schema-ui/blocks",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/blocks/src",
+  "projectType": "library",
+  "tags": ["type:blocks"],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/blocks",
+        "main": "libs/blocks/src/index.ts",
+        "tsConfig": "libs/blocks/tsconfig.json"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc --noEmit -p libs/blocks/tsconfig.json"
+      }
+    }
+  }
+}

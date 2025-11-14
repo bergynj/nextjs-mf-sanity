@@ -1,0 +1,8 @@
+{
+  "name": "@schema-ui/sanity",
+  "version": "0.0.1",
+  "type": "module",
+  "dependencies": {
+    "@schema-ui/shared": "workspace:*"
+  }
+}

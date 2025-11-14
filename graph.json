@@ -1,0 +1,721 @@
+{
+  "graph": {
+    "nodes": {
+      "@schema-ui/blocks": {
+        "name": "@schema-ui/blocks",
+        "type": "lib",
+        "data": {
+          "root": "libs/blocks",
+          "name": "@schema-ui/blocks",
+          "tags": [
+            "npm:public",
+            "type:blocks"
+          ],
+          "metadata": {
+            "targetGroups": {},
+            "js": {
+              "packageName": "@schema-ui/blocks",
+              "packageVersion": "0.0.1",
+              "isInPackageManagerWorkspaces": true
+            }
+          },
+          "targets": {
+            "nx-release-publish": {
+              "executor": "@nx/js:release-publish",
+              "dependsOn": [
+                "^nx-release-publish"
+              ],
+              "options": {},
+              "configurations": {},
+              "parallelism": true
+            },
+            "build": {
+              "executor": "@nx/js:tsc",
+              "outputs": [
+                "{options.outputPath}"
+              ],
+              "options": {
+                "outputPath": "dist/libs/blocks",
+                "main": "libs/blocks/src/index.ts",
+                "tsConfig": "libs/blocks/tsconfig.json"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "cache": true,
+              "dependsOn": [
+                "^build"
+              ],
+              "inputs": [
+                "production",
+                "^production"
+              ]
+            },
+            "lint": {
+              "executor": "@nx/eslint:lint",
+              "configurations": {},
+              "options": {},
+              "parallelism": true,
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.eslintrc.json"
+              ],
+              "cache": true
+            },
+            "typecheck": {
+              "executor": "nx:run-commands",
+              "options": {
+                "command": "tsc --noEmit -p libs/blocks/tsconfig.json"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "inputs": [
+                "default",
+                "^production"
+              ],
+              "cache": true
+            }
+          },
+          "$schema": "../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "libs/blocks/src",
+          "projectType": "library",
+          "implicitDependencies": []
+        }
+      },
+      "@schema-ui/layout": {
+        "name": "@schema-ui/layout",
+        "type": "lib",
+        "data": {
+          "root": "libs/layout",
+          "name": "@schema-ui/layout",
+          "tags": [
+            "npm:public",
+            "type:layout"
+          ],
+          "metadata": {
+            "targetGroups": {},
+            "js": {
+              "packageName": "@schema-ui/layout",
+              "packageVersion": "0.0.1",
+              "isInPackageManagerWorkspaces": true
+            }
+          },
+          "targets": {
+            "nx-release-publish": {
+              "executor": "@nx/js:release-publish",
+              "dependsOn": [
+                "^nx-release-publish"
+              ],
+              "options": {},
+              "configurations": {},
+              "parallelism": true
+            },
+            "build": {
+              "executor": "@nx/js:tsc",
+              "outputs": [
+                "{options.outputPath}"
+              ],
+              "options": {
+                "outputPath": "dist/libs/layout",
+                "main": "libs/layout/src/index.ts",
+                "tsConfig": "libs/layout/tsconfig.json"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "cache": true,
+              "dependsOn": [
+                "^build"
+              ],
+              "inputs": [
+                "production",
+                "^production"
+              ]
+            },
+            "lint": {
+              "executor": "@nx/eslint:lint",
+              "configurations": {},
+              "options": {},
+              "parallelism": true,
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.eslintrc.json"
+              ],
+              "cache": true
+            },
+            "typecheck": {
+              "executor": "nx:run-commands",
+              "options": {
+                "command": "tsc --noEmit -p libs/layout/tsconfig.json"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "inputs": [
+                "default",
+                "^production"
+              ],
+              "cache": true
+            }
+          },
+          "$schema": "../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "libs/layout/src",
+          "projectType": "library",
+          "implicitDependencies": []
+        }
+      },
+      "@schema-ui/sanity": {
+        "name": "@schema-ui/sanity",
+        "type": "lib",
+        "data": {
+          "root": "libs/sanity",
+          "name": "@schema-ui/sanity",
+          "tags": [
+            "npm:public",
+            "type:sanity"
+          ],
+          "metadata": {
+            "targetGroups": {},
+            "js": {
+              "packageName": "@schema-ui/sanity",
+              "packageVersion": "0.0.1",
+              "isInPackageManagerWorkspaces": true
+            }
+          },
+          "targets": {
+            "nx-release-publish": {
+              "executor": "@nx/js:release-publish",
+              "dependsOn": [
+                "^nx-release-publish"
+              ],
+              "options": {},
+              "configurations": {},
+              "parallelism": true
+            },
+            "build": {
+              "executor": "@nx/js:tsc",
+              "outputs": [
+                "{options.outputPath}"
+              ],
+              "options": {
+                "outputPath": "dist/libs/sanity",
+                "main": "libs/sanity/src/index.ts",
+                "tsConfig": "libs/sanity/tsconfig.json"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "cache": true,
+              "dependsOn": [
+                "^build"
+              ],
+              "inputs": [
+                "production",
+                "^production"
+              ]
+            },
+            "lint": {
+              "executor": "@nx/eslint:lint",
+              "configurations": {},
+              "options": {},
+              "parallelism": true,
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.eslintrc.json"
+              ],
+              "cache": true
+            },
+            "typecheck": {
+              "executor": "nx:run-commands",
+              "options": {
+                "command": "tsc --noEmit -p libs/sanity/tsconfig.json"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "inputs": [
+                "default",
+                "^production"
+              ],
+              "cache": true
+            },
+            "typegen": {
+              "executor": "nx:run-commands",
+              "options": {
+                "command": "cd libs/sanity && sanity schema extract && sanity typegen generate"
+              },
+              "configurations": {},
+              "parallelism": true
+            }
+          },
+          "$schema": "../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "libs/sanity/src",
+          "projectType": "library",
+          "implicitDependencies": []
+        }
+      },
+      "@schema-ui/shared": {
+        "name": "@schema-ui/shared",
+        "type": "lib",
+        "data": {
+          "root": "libs/shared",
+          "name": "@schema-ui/shared",
+          "tags": [
+            "npm:public",
+            "type:shared"
+          ],
+          "metadata": {
+            "targetGroups": {},
+            "js": {
+              "packageName": "@schema-ui/shared",
+              "packageVersion": "0.0.1",
+              "isInPackageManagerWorkspaces": true
+            }
+          },
+          "targets": {
+            "nx-release-publish": {
+              "executor": "@nx/js:release-publish",
+              "dependsOn": [
+                "^nx-release-publish"
+              ],
+              "options": {},
+              "configurations": {},
+              "parallelism": true
+            },
+            "build": {
+              "executor": "@nx/js:tsc",
+              "outputs": [
+                "{options.outputPath}"
+              ],
+              "options": {
+                "outputPath": "dist/libs/shared",
+                "main": "libs/shared/src/index.ts",
+                "tsConfig": "libs/shared/tsconfig.json"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "cache": true,
+              "dependsOn": [
+                "^build"
+              ],
+              "inputs": [
+                "production",
+                "^production"
+              ]
+            },
+            "lint": {
+              "executor": "@nx/eslint:lint",
+              "configurations": {},
+              "options": {},
+              "parallelism": true,
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.eslintrc.json"
+              ],
+              "cache": true
+            },
+            "typecheck": {
+              "executor": "nx:run-commands",
+              "options": {
+                "command": "tsc --noEmit -p libs/shared/tsconfig.json"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "inputs": [
+                "default",
+                "^production"
+              ],
+              "cache": true
+            }
+          },
+          "$schema": "../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "libs/shared/src",
+          "projectType": "library",
+          "implicitDependencies": []
+        }
+      },
+      "web": {
+        "name": "web",
+        "type": "app",
+        "data": {
+          "root": "apps/web",
+          "targets": {
+            "build": {
+              "executor": "@nx/next:build",
+              "outputs": [
+                "{options.outputPath}"
+              ],
+              "options": {
+                "outputPath": "dist/apps/web"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [
+                "^build"
+              ],
+              "inputs": [
+                "production",
+                "^production"
+              ],
+              "cache": true
+            },
+            "dev": {
+              "executor": "nx:run-commands",
+              "options": {
+                "command": "pnpm next dev",
+                "cwd": "apps/web"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "start": {
+              "executor": "@nx/next:server",
+              "options": {
+                "buildTarget": "web:build",
+                "dev": false
+              },
+              "configurations": {},
+              "parallelism": true,
+              "continuous": true
+            },
+            "serve-static": {
+              "continuous": true,
+              "options": {
+                "cwd": "apps/web",
+                "command": "next start"
+              },
+              "dependsOn": [
+                "build"
+              ],
+              "executor": "nx:run-commands",
+              "configurations": {},
+              "parallelism": true
+            },
+            "build-deps": {
+              "dependsOn": [
+                "^build"
+              ],
+              "configurations": {},
+              "options": {},
+              "parallelism": true,
+              "executor": "nx:noop"
+            },
+            "watch-deps": {
+              "continuous": true,
+              "dependsOn": [
+                "build-deps"
+              ],
+              "executor": "nx:run-commands",
+              "options": {
+                "command": "pnpm exec nx watch --projects web --includeDependentProjects -- pnpm exec nx build-deps web"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "serve": {
+              "executor": "@nx/next:server",
+              "options": {
+                "buildTarget": "web:build",
+                "dev": true
+              },
+              "configurations": {},
+              "parallelism": true,
+              "continuous": true
+            },
+            "lint": {
+              "executor": "@nx/eslint:lint",
+              "configurations": {},
+              "options": {},
+              "parallelism": true,
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.eslintrc.json"
+              ],
+              "cache": true
+            },
+            "typecheck": {
+              "executor": "nx:run-commands",
+              "options": {
+                "command": "tsc --noEmit -p apps/web/tsconfig.json"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "inputs": [
+                "default",
+                "^production"
+              ],
+              "cache": true
+            }
+          },
+          "name": "web",
+          "tags": [
+            "npm:private",
+            "type:app"
+          ],
+          "metadata": {
+            "targetGroups": {},
+            "js": {
+              "packageName": "web",
+              "packageVersion": "0.0.1",
+              "isInPackageManagerWorkspaces": true
+            }
+          },
+          "$schema": "../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "apps/web",
+          "projectType": "application",
+          "implicitDependencies": []
+        }
+      },
+      "@schema-ui/ui": {
+        "name": "@schema-ui/ui",
+        "type": "lib",
+        "data": {
+          "root": "libs/ui",
+          "name": "@schema-ui/ui",
+          "tags": [
+            "npm:public",
+            "type:ui"
+          ],
+          "metadata": {
+            "targetGroups": {},
+            "js": {
+              "packageName": "@schema-ui/ui",
+              "packageVersion": "0.0.1",
+              "isInPackageManagerWorkspaces": true
+            }
+          },
+          "targets": {
+            "nx-release-publish": {
+              "executor": "@nx/js:release-publish",
+              "dependsOn": [
+                "^nx-release-publish"
+              ],
+              "options": {},
+              "configurations": {},
+              "parallelism": true
+            },
+            "build": {
+              "executor": "@nx/js:tsc",
+              "outputs": [
+                "{options.outputPath}"
+              ],
+              "options": {
+                "outputPath": "dist/libs/ui",
+                "main": "libs/ui/src/index.ts",
+                "tsConfig": "libs/ui/tsconfig.json"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "cache": true,
+              "dependsOn": [
+                "^build"
+              ],
+              "inputs": [
+                "production",
+                "^production"
+              ]
+            },
+            "lint": {
+              "executor": "@nx/eslint:lint",
+              "configurations": {},
+              "options": {},
+              "parallelism": true,
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.eslintrc.json"
+              ],
+              "cache": true
+            },
+            "typecheck": {
+              "executor": "nx:run-commands",
+              "options": {
+                "command": "tsc --noEmit -p libs/ui/tsconfig.json"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "inputs": [
+                "default",
+                "^production"
+              ],
+              "cache": true
+            }
+          },
+          "$schema": "../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "libs/ui/src",
+          "projectType": "library",
+          "implicitDependencies": []
+        }
+      },
+      "schema-ui-next-js-sanity-starter": {
+        "name": "schema-ui-next-js-sanity-starter",
+        "type": "app",
+        "data": {
+          "root": ".",
+          "targets": {
+            "build": {
+              "options": {
+                "cwd": ".",
+                "tty": false,
+                "command": "next build"
+              },
+              "dependsOn": [
+                "^build"
+              ],
+              "cache": true,
+              "inputs": [
+                "production",
+                "^production"
+              ],
+              "outputs": [
+                "{projectRoot}/.next/!(cache)/**/*",
+                "{projectRoot}/.next/!(cache)"
+              ],
+              "executor": "nx:run-commands",
+              "configurations": {},
+              "parallelism": true
+            },
+            "dev": {
+              "continuous": true,
+              "options": {
+                "cwd": ".",
+                "command": "next dev"
+              },
+              "executor": "nx:run-commands",
+              "configurations": {},
+              "parallelism": true
+            },
+            "start": {
+              "continuous": true,
+              "options": {
+                "cwd": ".",
+                "command": "next start"
+              },
+              "dependsOn": [
+                "build"
+              ],
+              "executor": "nx:run-commands",
+              "configurations": {},
+              "parallelism": true
+            },
+            "serve-static": {
+              "continuous": true,
+              "options": {
+                "cwd": ".",
+                "command": "next start"
+              },
+              "dependsOn": [
+                "build"
+              ],
+              "executor": "nx:run-commands",
+              "configurations": {},
+              "parallelism": true
+            },
+            "build-deps": {
+              "dependsOn": [
+                "^build"
+              ],
+              "configurations": {},
+              "options": {},
+              "parallelism": true,
+              "executor": "nx:noop"
+            },
+            "watch-deps": {
+              "continuous": true,
+              "dependsOn": [
+                "build-deps"
+              ],
+              "executor": "nx:run-commands",
+              "options": {
+                "command": "pnpm exec nx watch --projects schema-ui-next-js-sanity-starter --includeDependentProjects -- pnpm exec nx build-deps schema-ui-next-js-sanity-starter"
+              },
+              "configurations": {},
+              "parallelism": true
+            }
+          },
+          "name": "schema-ui-next-js-sanity-starter",
+          "implicitDependencies": [],
+          "tags": []
+        }
+      }
+    },
+    "dependencies": {
+      "@schema-ui/blocks": [
+        {
+          "source": "@schema-ui/blocks",
+          "target": "@schema-ui/shared",
+          "type": "static"
+        },
+        {
+          "source": "@schema-ui/blocks",
+          "target": "@schema-ui/ui",
+          "type": "static"
+        },
+        {
+          "source": "@schema-ui/blocks",
+          "target": "@schema-ui/sanity",
+          "type": "static"
+        }
+      ],
+      "@schema-ui/layout": [
+        {
+          "source": "@schema-ui/layout",
+          "target": "@schema-ui/shared",
+          "type": "static"
+        },
+        {
+          "source": "@schema-ui/layout",
+          "target": "@schema-ui/ui",
+          "type": "static"
+        },
+        {
+          "source": "@schema-ui/layout",
+          "target": "@schema-ui/sanity",
+          "type": "static"
+        }
+      ],
+      "@schema-ui/sanity": [
+        {
+          "source": "@schema-ui/sanity",
+          "target": "@schema-ui/shared",
+          "type": "static"
+        }
+      ],
+      "@schema-ui/shared": [],
+      "web": [
+        {
+          "source": "web",
+          "target": "@schema-ui/blocks",
+          "type": "static"
+        },
+        {
+          "source": "web",
+          "target": "@schema-ui/sanity",
+          "type": "static"
+        },
+        {
+          "source": "web",
+          "target": "@schema-ui/ui",
+          "type": "static"
+        },
+        {
+          "source": "web",
+          "target": "@schema-ui/shared",
+          "type": "static"
+        },
+        {
+          "source": "web",
+          "target": "@schema-ui/layout",
+          "type": "static"
+        }
+      ],
+      "@schema-ui/ui": [
+        {
+          "source": "@schema-ui/ui",
+          "target": "@schema-ui/shared",
+          "type": "static"
+        },
+        {
+          "source": "@schema-ui/ui",
+          "target": "@schema-ui/sanity",
+          "type": "static"
+        }
+      ],
+      "schema-ui-next-js-sanity-starter": []
+    }
+  }
+}

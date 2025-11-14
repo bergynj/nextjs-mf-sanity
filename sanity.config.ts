@@ -10,10 +10,10 @@ import { structureTool } from "sanity/structure";
 import { presentationTool } from "sanity/presentation";
 
 // Go to https://www.sanity.io/docs/api-versioning to learn how API versioning works
-import { apiVersion, dataset, projectId } from "./sanity/env";
-import { schema } from "./sanity/schema";
-import { resolve } from "@/sanity/presentation/resolve";
-import { structure } from "./sanity/structure";
+import { apiVersion, dataset, projectId } from "@schema-ui/sanity";
+import { schema } from "@schema-ui/sanity";
+import { resolve } from "@schema-ui/sanity";
+import { structure } from "@schema-ui/sanity";
 import { codeInput } from "@sanity/code-input";
 
 // Define the actions that should be available for singleton documents
