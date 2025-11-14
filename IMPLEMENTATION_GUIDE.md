@@ -5,28 +5,68 @@ This guide provides detailed step-by-step instructions for migrating to the Nx m
 ## Prerequisites
 
 - Node.js 18+ installed
-- npm, yarn, or pnpm installed
+- **pnpm 9+ installed** (required - enforced)
 - Git repository initialized
+
+### Install pnpm
+
+```bash
+npm install -g pnpm
+# or use corepack (recommended)
+corepack enable
+corepack prepare pnpm@9.0.0 --activate
+```
 
 ## Phase 1: Initialize Nx Workspace
 
 ### Step 1.1: Install Nx
 ```bash
-npx create-nx-workspace@latest schema-ui-monorepo --preset=apps --packageManager=npm
+npx create-nx-workspace@latest schema-ui-monorepo --preset=apps --packageManager=pnpm
 # Or use existing directory:
-npx nx@latest init
+npx nx@latest init --packageManager=pnpm
 ```
 
-### Step 1.2: Install Nx Plugins
+### Step 1.2: Configure pnpm Enforcement
+1. Create `.npmrc` at root:
+   ```
+   engine-strict=true
+   auto-install-peers=true
+   strict-peer-dependencies=false
+   shamefully-hoist=false
+   ```
+
+2. Update `package.json`:
+   ```json
+   {
+     "packageManager": "pnpm@9.0.0",
+     "engines": {
+       "node": ">=18.0.0",
+       "pnpm": ">=9.0.0"
+     },
+     "scripts": {
+       "preinstall": "npx only-allow pnpm"
+     }
+   }
+   ```
+
+3. Install `only-allow`:
+   ```bash
+   pnpm add -D -w only-allow
+   ```
+
+### Step 1.3: Install Nx Plugins
 ```bash
-npm install -D @nx/next @nx/react @nx/js @nx/node
+pnpm add -D -w @nx/next @nx/react @nx/js @nx/node
 ```
 
-### Step 1.3: Create nx.json Configuration
+### Step 1.4: Create nx.json Configuration
 Create `nx.json` with appropriate executors and task pipelines:
 ```json
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "cli": {
+    "packageManager": "pnpm"
+  },
   "defaultBase": "main",
   "namedInputs": {
     "default": ["{projectRoot}/**/*", "sharedGlobals"],
@@ -64,7 +104,7 @@ Create `nx.json` with appropriate executors and task pipelines:
 }
 ```
 
-### Step 1.4: Create TypeScript Base Configuration
+### Step 1.5: Create TypeScript Base Configuration
 Create `tsconfig.base.json`:
 ```json
 {
@@ -104,7 +144,7 @@ Create `tsconfig.base.json`:
 
 ### Step 2.1: Create @schema-ui/shared Library
 ```bash
-nx generate @nx/js:library shared --directory=libs/shared --importPath=@schema-ui/shared --buildable --publishable
+pnpm nx generate @nx/js:library shared --directory=libs/shared --importPath=@schema-ui/shared --buildable --publishable
 ```
 
 **Actions:**
@@ -120,7 +160,7 @@ nx generate @nx/js:library shared --directory=libs/shared --importPath=@schema-u
 
 ### Step 2.2: Create @schema-ui/sanity Library
 ```bash
-nx generate @nx/js:library sanity --directory=libs/sanity --importPath=@schema-ui/sanity --buildable --publishable
+pnpm nx generate @nx/js:library sanity --directory=libs/sanity --importPath=@schema-ui/sanity --buildable --publishable
 ```
 
 **Actions:**
@@ -134,7 +174,7 @@ nx generate @nx/js:library sanity --directory=libs/sanity --importPath=@schema-u
 
 ### Step 3.1: Create @schema-ui/sanity-schemas Library
 ```bash
-nx generate @nx/js:library sanity-schemas --directory=libs/sanity-schemas --importPath=@schema-ui/sanity-schemas --buildable
+pnpm nx generate @nx/js:library sanity-schemas --directory=libs/sanity-schemas --importPath=@schema-ui/sanity-schemas --buildable
 ```
 
 **Actions:**
@@ -148,7 +188,7 @@ nx generate @nx/js:library sanity-schemas --directory=libs/sanity-schemas --impo
 
 ### Step 3.2: Create @schema-ui/sanity-queries Library
 ```bash
-nx generate @nx/js:library sanity-queries --directory=libs/sanity-queries --importPath=@schema-ui/sanity-queries --buildable
+pnpm nx generate @nx/js:library sanity-queries --directory=libs/sanity-queries --importPath=@schema-ui/sanity-queries --buildable
 ```
 
 **Actions:**
@@ -160,7 +200,7 @@ nx generate @nx/js:library sanity-queries --directory=libs/sanity-queries --impo
 
 ### Step 4.1: Create @schema-ui/ui Library
 ```bash
-nx generate @nx/react:library ui --directory=libs/ui --importPath=@schema-ui/ui --buildable --publishable
+pnpm nx generate @nx/react:library ui --directory=libs/ui --importPath=@schema-ui/ui --buildable --publishable
 ```
 
 **Actions:**
@@ -173,7 +213,7 @@ nx generate @nx/react:library ui --directory=libs/ui --importPath=@schema-ui/ui 
 
 ### Step 4.2: Create @schema-ui/blocks Library
 ```bash
-nx generate @nx/react:library blocks --directory=libs/blocks --importPath=@schema-ui/blocks --buildable --publishable
+pnpm nx generate @nx/react:library blocks --directory=libs/blocks --importPath=@schema-ui/blocks --buildable --publishable
 ```
 
 **Actions:**
@@ -188,7 +228,7 @@ nx generate @nx/react:library blocks --directory=libs/blocks --importPath=@schem
 
 ### Step 4.3: Create @schema-ui/layout Library
 ```bash
-nx generate @nx/react:library layout --directory=libs/layout --importPath=@schema-ui/layout --buildable --publishable
+pnpm nx generate @nx/react:library layout --directory=libs/layout --importPath=@schema-ui/layout --buildable --publishable
 ```
 
 **Actions:**
@@ -202,7 +242,7 @@ nx generate @nx/react:library layout --directory=libs/layout --importPath=@schem
 
 ### Step 4.4: Create @schema-ui/blog Library
 ```bash
-nx generate @nx/react:library blog --directory=libs/blog --importPath=@schema-ui/blog --buildable
+pnpm nx generate @nx/react:library blog --directory=libs/blog --importPath=@schema-ui/blog --buildable
 ```
 
 **Actions:**
@@ -216,7 +256,7 @@ nx generate @nx/react:library blog --directory=libs/blog --importPath=@schema-ui
 
 ### Step 4.5: Create @schema-ui/forms Library
 ```bash
-nx generate @nx/react:library forms --directory=libs/forms --importPath=@schema-ui/forms --buildable
+pnpm nx generate @nx/react:library forms --directory=libs/forms --importPath=@schema-ui/forms --buildable
 ```
 
 **Actions:**
@@ -228,7 +268,7 @@ nx generate @nx/react:library forms --directory=libs/forms --importPath=@schema-
 
 ### Step 4.6: Create @schema-ui/studio Library
 ```bash
-nx generate @nx/js:library studio --directory=libs/studio --importPath=@schema-ui/studio --buildable
+pnpm nx generate @nx/js:library studio --directory=libs/studio --importPath=@schema-ui/studio --buildable
 ```
 
 **Actions:**
@@ -241,7 +281,7 @@ nx generate @nx/js:library studio --directory=libs/studio --importPath=@schema-u
 
 ### Step 5.1: Generate Next.js App
 ```bash
-nx generate @nx/next:application web --directory=apps/web
+pnpm nx generate @nx/next:application web --directory=apps/web
 ```
 
 **Actions:**
@@ -283,14 +323,20 @@ Update all imports in `apps/web/app/` to use library paths:
 ```json
 {
   "name": "schema-ui-monorepo",
+  "packageManager": "pnpm@9.0.0",
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=9.0.0"
+  },
   "scripts": {
-    "dev": "nx dev web",
-    "build": "nx build web",
-    "start": "nx start web",
-    "lint": "nx run-many --target=lint --all",
-    "typecheck": "nx run-many --target=typecheck --all",
-    "typegen": "nx run sanity-schemas:typegen",
-    "test": "nx run-many --target=test --all"
+    "preinstall": "npx only-allow pnpm",
+    "dev": "pnpm nx dev web",
+    "build": "pnpm nx build web",
+    "start": "pnpm nx start web",
+    "lint": "pnpm nx run-many --target=lint --all",
+    "typecheck": "pnpm nx run-many --target=typecheck --all",
+    "typegen": "pnpm nx run sanity-schemas:typegen",
+    "test": "pnpm nx run-many --target=test --all"
   }
 }
 ```
@@ -341,22 +387,22 @@ dist/
 
 ### Step 7.1: Verify TypeScript Compilation
 ```bash
-nx run-many --target=typecheck --all
+pnpm nx run-many --target=typecheck --all
 ```
 
 ### Step 7.2: Verify Builds
 ```bash
-nx run-many --target=build --all
+pnpm nx run-many --target=build --all
 ```
 
 ### Step 7.3: Test Development Server
 ```bash
-nx dev web
+pnpm nx dev web
 ```
 
 ### Step 7.4: Verify Dependency Graph
 ```bash
-nx graph
+pnpm nx graph
 ```
 
 ## Phase 8: Cleanup
@@ -386,6 +432,17 @@ After verifying everything works:
 - [ ] No circular dependencies
 
 ## Common Issues and Solutions
+
+### Issue: pnpm not found or wrong version
+**Solution**: 
+```bash
+corepack enable
+corepack prepare pnpm@9.0.0 --activate
+# Or install globally: npm install -g pnpm
+```
+
+### Issue: npm/yarn commands still work
+**Solution**: Ensure `only-allow` is installed and `preinstall` script is in package.json. Try `npm install` - it should show an error.
 
 ### Issue: Import resolution errors
 **Solution**: Verify `tsconfig.base.json` paths and library `tsconfig.json` files extend base config

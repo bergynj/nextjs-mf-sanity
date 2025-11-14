@@ -10,6 +10,8 @@ This repository will be migrated from a single Next.js application to a composab
 - **MONOREPO_MIGRATION_PLAN.md** - Architecture overview and domain breakdown
 - **MIGRATION_FILE_MAPPING.md** - Detailed file mappings and import paths
 - **IMPLEMENTATION_GUIDE.md** - Step-by-step implementation instructions
+- **PNPM_ENFORCEMENT.md** - pnpm enforcement configuration and setup
+- **SIMPLIFIED_STRUCTURE.md** - Rationale for 5-library structure
 - **MIGRATION_SUMMARY.md** - This file (quick reference)
 
 ### Task List
@@ -75,40 +77,52 @@ apps/web
 | `@/components/ui/button` | `@schema-ui/ui` |
 | `@/components/blocks/hero-1` | `@schema-ui/blocks` |
 
-## Key Commands
+## Key Commands (pnpm enforced)
 
 ```bash
-# Initialize Nx
-npx nx@latest init
+# Initialize Nx (with pnpm)
+npx nx@latest init --packageManager=pnpm
 
 # Generate library
-nx generate @nx/react:library <name> --directory=libs/<name> --importPath=@schema-ui/<name>
+pnpm nx generate @nx/react:library <name> --directory=libs/<name> --importPath=@schema-ui/<name>
 # For JS libraries (sanity, shared):
-nx generate @nx/js:library <name> --directory=libs/<name> --importPath=@schema-ui/<name>
+pnpm nx generate @nx/js:library <name> --directory=libs/<name> --importPath=@schema-ui/<name>
 
 # Generate Next.js app
-nx generate @nx/next:application web --directory=apps/web
+pnpm nx generate @nx/next:application web --directory=apps/web
+
+# Install dependencies
+pnpm install
+
+# Add dependency to workspace root
+pnpm add -w <package>
+
+# Add dependency to specific library
+pnpm add --filter @schema-ui/shared <package>
 
 # Build all
-nx run-many --target=build --all
+pnpm nx run-many --target=build --all
 
 # Type check all
-nx run-many --target=typecheck --all
+pnpm nx run-many --target=typecheck --all
 
 # Run dev server
-nx dev web
+pnpm nx dev web
 
 # View dependency graph
-nx graph
+pnpm nx graph
 ```
+
+**Note**: pnpm is enforced via `packageManager` field and `only-allow` package. See `PNPM_ENFORCEMENT.md` for details.
 
 ## Critical Configuration Files
 
-1. **nx.json** - Nx workspace configuration
-2. **tsconfig.base.json** - Base TypeScript config with path mappings
-3. **package.json** - Updated scripts for monorepo
-4. **apps/web/next.config.mjs** - Next.js config with transpilePackages
-5. **tailwind.config.js** - Shared Tailwind config at root
+1. **.npmrc** - pnpm configuration and enforcement
+2. **package.json** - packageManager field, engines, and preinstall script
+3. **nx.json** - Nx workspace configuration (with pnpm specified)
+4. **tsconfig.base.json** - Base TypeScript config with path mappings
+5. **apps/web/next.config.mjs** - Next.js config with transpilePackages
+6. **tailwind.config.js** - Shared Tailwind config at root
 
 ## Success Criteria
 

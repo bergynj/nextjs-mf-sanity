@@ -1,0 +1,18 @@
+# pnpm Configuration for Nx Monorepo
+# Copy this to .npmrc at workspace root
+
+# Enforce engine versions from package.json
+engine-strict=true
+
+# Automatically install peer dependencies
+auto-install-peers=true
+
+# Allow some flexibility with peer dependencies (adjust as needed)
+strict-peer-dependencies=false
+
+# Use pnpm's strict module resolution (better for monorepos)
+# Set to true if you need hoisting for compatibility
+shamefully-hoist=false
+
+# Optional: Set Node.js version (if using .nvmrc)
+# node-version=18

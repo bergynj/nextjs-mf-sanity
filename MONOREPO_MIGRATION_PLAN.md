@@ -156,11 +156,12 @@ workspace/
 ## Migration Tasks
 
 ### Phase 1: Nx Workspace Setup
-1. Initialize Nx workspace with Next.js plugin
-2. Configure nx.json with executors and task pipelines
-3. Set up TypeScript base configuration (tsconfig.base.json)
-4. Configure shared Tailwind CSS at workspace root
-5. Update .gitignore for Nx cache
+1. Initialize Nx workspace with Next.js plugin (using pnpm)
+2. Configure pnpm enforcement (.npmrc, packageManager field, only-allow)
+3. Configure nx.json with executors and task pipelines
+4. Set up TypeScript base configuration (tsconfig.base.json)
+5. Configure shared Tailwind CSS at workspace root
+6. Update .gitignore for Nx cache
 
 ### Phase 2: Create Base Libraries
 1. Create @schema-ui/shared library
@@ -200,6 +201,13 @@ workspace/
 5. Document development workflow
 
 ## Key Considerations
+
+### Package Manager (pnpm)
+- **pnpm is enforced** via `packageManager` field in package.json
+- `only-allow` package prevents npm/yarn usage
+- `.npmrc` configures pnpm behavior for monorepo
+- All commands use `pnpm` (e.g., `pnpm nx`, `pnpm install`)
+- See `PNPM_ENFORCEMENT.md` for complete configuration
 
 ### TypeScript Configuration
 - Use `tsconfig.base.json` for shared compiler options
