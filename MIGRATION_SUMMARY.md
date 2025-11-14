@@ -13,26 +13,23 @@ This repository will be migrated from a single Next.js application to a composab
 - **MIGRATION_SUMMARY.md** - This file (quick reference)
 
 ### Task List
-See the TODO list in your workspace for all 26 migration tasks.
+See the TODO list in your workspace for all 20 migration tasks (simplified from original 26).
 
-## Library Structure
+## Library Structure (Simplified - 5 Libraries)
 
 ```
 libs/
 ├── shared/          # @schema-ui/shared - Utilities and types
-├── sanity/          # @schema-ui/sanity - Sanity client and utilities
-├── sanity-schemas/  # @schema-ui/sanity-schemas - Schema definitions
-├── sanity-queries/  # @schema-ui/sanity-queries - GROQ queries
+├── sanity/          # @schema-ui/sanity - ALL Sanity (client, schemas, queries, studio)
 ├── ui/              # @schema-ui/ui - Reusable UI components
-├── blocks/          # @schema-ui/blocks - Content block components
-├── layout/          # @schema-ui/layout - Layout and navigation
-├── blog/            # @schema-ui/blog - Blog functionality
-├── forms/           # @schema-ui/forms - Form components
-└── studio/          # @schema-ui/studio - Sanity Studio config
+├── blocks/          # @schema-ui/blocks - ALL content blocks (including forms & blog)
+└── layout/          # @schema-ui/layout - Layout and navigation
 
 apps/
 └── web/             # Next.js application
 ```
+
+**Note**: See `SIMPLIFIED_STRUCTURE.md` for rationale on why 5 libraries instead of 11.
 
 ## Key Dependencies
 
@@ -42,31 +39,30 @@ apps/web
 
 @schema-ui/blocks
   ├── @schema-ui/ui
-  ├── @schema-ui/sanity-queries
+  ├── @schema-ui/sanity
   └── @schema-ui/shared
 
 @schema-ui/layout
   ├── @schema-ui/ui
-  ├── @schema-ui/sanity-queries
+  ├── @schema-ui/sanity
   └── @schema-ui/shared
 
-@schema-ui/blog
-  ├── @schema-ui/blocks
-  ├── @schema-ui/ui
-  ├── @schema-ui/sanity-queries
+@schema-ui/ui
+  └── @schema-ui/shared
+
+@schema-ui/sanity
   └── @schema-ui/shared
 ```
 
 ## Migration Phases
 
 1. **Phase 1**: Initialize Nx workspace
-2. **Phase 2**: Create base libraries (shared, sanity)
-3. **Phase 3**: Create content libraries (schemas, queries)
-4. **Phase 4**: Create component libraries (ui, blocks, layout, blog, forms, studio)
-5. **Phase 5**: Create Next.js application
-6. **Phase 6**: Update configurations
-7. **Phase 7**: Testing and verification
-8. **Phase 8**: Cleanup
+2. **Phase 2**: Create base libraries (shared, sanity - consolidated)
+3. **Phase 3**: Create component libraries (ui, blocks, layout)
+4. **Phase 4**: Create Next.js application
+5. **Phase 5**: Update configurations
+6. **Phase 6**: Testing and verification
+7. **Phase 7**: Cleanup
 
 ## Import Path Changes
 
@@ -74,9 +70,10 @@ apps/web
 |--------|-------|
 | `@/lib/utils` | `@schema-ui/shared` |
 | `@/sanity/lib/client` | `@schema-ui/sanity` |
+| `@/sanity/schemas/*` | `@schema-ui/sanity` |
+| `@/sanity/queries/*` | `@schema-ui/sanity` |
 | `@/components/ui/button` | `@schema-ui/ui` |
 | `@/components/blocks/hero-1` | `@schema-ui/blocks` |
-| `@/sanity/queries/page` | `@schema-ui/sanity-queries` |
 
 ## Key Commands
 
@@ -86,6 +83,8 @@ npx nx@latest init
 
 # Generate library
 nx generate @nx/react:library <name> --directory=libs/<name> --importPath=@schema-ui/<name>
+# For JS libraries (sanity, shared):
+nx generate @nx/js:library <name> --directory=libs/<name> --importPath=@schema-ui/<name>
 
 # Generate Next.js app
 nx generate @nx/next:application web --directory=apps/web

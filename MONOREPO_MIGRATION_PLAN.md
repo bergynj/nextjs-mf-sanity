@@ -6,7 +6,7 @@ This document outlines the plan to migrate the Schema UI Next.js + Sanity starte
 
 ## Target Architecture
 
-### Workspace Structure
+### Workspace Structure (Simplified - 5 Libraries)
 
 ```
 workspace/
@@ -24,7 +24,7 @@ workspace/
 │   │   │   └── types/
 │   │   └── project.json
 │   │
-│   ├── sanity/                 # @schema-ui/sanity
+│   ├── sanity/                 # @schema-ui/sanity (ALL Sanity functionality)
 │   │   ├── src/
 │   │   │   ├── lib/
 │   │   │   │   ├── client.ts
@@ -33,62 +33,46 @@ workspace/
 │   │   │   │   ├── live.ts
 │   │   │   │   ├── metadata.ts
 │   │   │   │   └── token.ts
-│   │   │   └── env.ts
-│   │   └── project.json
-│   │
-│   ├── sanity-schemas/         # @schema-ui/sanity-schemas
-│   │   ├── src/
-│   │   │   ├── schemas/
-│   │   │   │   ├── blocks/
-│   │   │   │   ├── documents/
-│   │   │   │   └── previews/
+│   │   │   ├── schemas/        # All schema definitions
+│   │   │   ├── queries/        # All GROQ queries
+│   │   │   ├── presentation/  # Studio presentation
+│   │   │   ├── env.ts
 │   │   │   ├── schema.ts
 │   │   │   └── structure.ts
-│   │   └── project.json
-│   │
-│   ├── sanity-queries/         # @schema-ui/sanity-queries
-│   │   ├── src/
-│   │   │   └── queries/
+│   │   ├── sanity.config.ts
 │   │   └── project.json
 │   │
 │   ├── ui/                     # @schema-ui/ui
 │   │   ├── src/
 │   │   │   └── components/
-│   │   │       └── ui/
+│   │   │       ├── ui/         # Reusable UI primitives
+│   │   │       ├── portable-text-renderer.tsx
+│   │   │       └── theme-provider.tsx
 │   │   └── project.json
 │   │
-│   ├── blocks/                 # @schema-ui/blocks
+│   ├── blocks/                 # @schema-ui/blocks (ALL content blocks)
 │   │   ├── src/
 │   │   │   └── components/
 │   │   │       └── blocks/
+│   │   │           ├── hero/
+│   │   │           ├── grid/
+│   │   │           ├── split/
+│   │   │           ├── carousel/
+│   │   │           ├── timeline/
+│   │   │           ├── cta/
+│   │   │           ├── forms/   # Form blocks (newsletter)
+│   │   │           ├── all-posts.tsx
+│   │   │           ├── faqs.tsx
+│   │   │           └── index.tsx
 │   │   └── project.json
 │   │
-│   ├── layout/                 # @schema-ui/layout
-│   │   ├── src/
-│   │   │   └── components/
-│   │   │       ├── header/
-│   │   │       ├── footer.tsx
-│   │   │       └── logo.tsx
-│   │   └── project.json
-│   │
-│   ├── blog/                   # @schema-ui/blog
-│   │   ├── src/
-│   │   │   ├── components/
-│   │   │   ├── queries/
-│   │   │   └── schemas/
-│   │   └── project.json
-│   │
-│   ├── forms/                  # @schema-ui/forms
-│   │   ├── src/
-│   │   │   ├── components/
-│   │   │   ├── queries/
-│   │   │   └── schemas/
-│   │   └── project.json
-│   │
-│   └── studio/                 # @schema-ui/studio
+│   └── layout/                 # @schema-ui/layout
 │       ├── src/
-│       │   ├── presentation/
-│       │   └── studio/
+│       │   └── components/
+│       │       ├── header/
+│       │       ├── footer.tsx
+│       │       ├── logo.tsx
+│       │       └── menu-toggle.tsx
 │       └── project.json
 │
 ├── nx.json
@@ -97,50 +81,44 @@ workspace/
 └── tailwind.config.js          # Shared Tailwind config
 ```
 
-## Domain Module Breakdown
+**Note**: See `SIMPLIFIED_STRUCTURE.md` for rationale on why 5 libraries instead of 11.
+
+## Domain Module Breakdown (Simplified)
 
 ### 1. @schema-ui/shared
-**Purpose**: Common utilities, types, and shared functionality
+**Purpose**: Foundation utilities and types
 - `lib/utils.ts` - Utility functions (cn, etc.)
 - `types/` - Shared TypeScript types
 - **Dependencies**: None (base library)
 
 ### 2. @schema-ui/sanity
-**Purpose**: Sanity CMS client and core utilities
-- Client configuration
+**Purpose**: Complete Sanity CMS integration (consolidated)
+- Client configuration and utilities
 - Fetch utilities
 - Image URL builder
 - Live preview utilities
 - Metadata generation
 - Environment configuration
+- **ALL** schema definitions (documents, blocks, shared objects)
+- **ALL** GROQ queries (page, post, navigation, settings, etc.)
+- Studio configuration
+- Presentation resolve
+- Preview components
 - **Dependencies**: `@schema-ui/shared`
 
-### 3. @schema-ui/sanity-schemas
-**Purpose**: Sanity schema definitions
-- Document schemas (page, post, author, category, etc.)
-- Block schemas (hero, grid, split, carousel, etc.)
-- Shared object schemas (block-content, link, color-variant, etc.)
-- Schema structure configuration
-- **Dependencies**: `@schema-ui/shared`
+**Rationale**: All Sanity-related functionality is one cohesive domain. Schemas, queries, and client are tightly coupled.
 
-### 4. @schema-ui/sanity-queries
-**Purpose**: GROQ queries for Sanity
-- Page queries
-- Post queries
-- Block-specific queries
-- Navigation queries
-- Settings queries
-- **Dependencies**: `@schema-ui/shared`
-
-### 5. @schema-ui/ui
+### 3. @schema-ui/ui
 **Purpose**: Reusable UI component library
-- Radix UI wrappers (accordion, avatar, badge, etc.)
+- Radix UI wrappers (accordion, avatar, badge, button, card, etc.)
 - Form components
-- Layout components (section-container, card, etc.)
+- Layout utilities (section-container)
+- Portable text renderer
+- Theme provider
 - **Dependencies**: `@schema-ui/shared`
 
-### 6. @schema-ui/blocks
-**Purpose**: Content block components
+### 4. @schema-ui/blocks
+**Purpose**: All content block components (consolidated)
 - Hero blocks
 - Grid blocks
 - Split blocks
@@ -149,40 +127,25 @@ workspace/
 - CTA blocks
 - FAQ blocks
 - Logo cloud blocks
-- All posts block
-- **Dependencies**: `@schema-ui/shared`, `@schema-ui/ui`, `@schema-ui/sanity-queries`
+- Form blocks (newsletter)
+- Blog blocks (all-posts, post-hero)
+- Block renderer/index
+- **Dependencies**: `@schema-ui/shared`, `@schema-ui/ui`, `@schema-ui/sanity`
 
-### 7. @schema-ui/layout
-**Purpose**: Layout and navigation components
+**Rationale**: All blocks are composable and work together via componentMap. Blog and form blocks are just content blocks.
+
+### 5. @schema-ui/layout
+**Purpose**: Structural layout and navigation components
 - Header (desktop and mobile navigation)
 - Footer
 - Logo component
 - Menu toggle
-- **Dependencies**: `@schema-ui/shared`, `@schema-ui/ui`, `@schema-ui/sanity-queries`
+- Draft mode utilities
+- **Dependencies**: `@schema-ui/shared`, `@schema-ui/ui`, `@schema-ui/sanity`
 
-### 8. @schema-ui/blog
-**Purpose**: Blog-specific functionality
-- Post components (post-card, post-date, post-hero)
-- Blog queries
-- Blog schemas (if blog-specific)
-- **Dependencies**: `@schema-ui/shared`, `@schema-ui/ui`, `@schema-ui/sanity-queries`, `@schema-ui/blocks`
+**Rationale**: Layout is structural, separate from content blocks.
 
-### 9. @schema-ui/forms
-**Purpose**: Form components and functionality
-- Newsletter form component
-- Form schemas
-- Form queries
-- API route handlers (if needed)
-- **Dependencies**: `@schema-ui/shared`, `@schema-ui/ui`, `@schema-ui/sanity-queries`
-
-### 10. @schema-ui/studio
-**Purpose**: Sanity Studio configuration
-- Studio configuration
-- Presentation resolve
-- Preview components
-- **Dependencies**: `@schema-ui/shared`, `@schema-ui/sanity-schemas`
-
-### 11. apps/web
+### 6. apps/web
 **Purpose**: Next.js application
 - App router pages
 - API routes
@@ -201,21 +164,13 @@ workspace/
 
 ### Phase 2: Create Base Libraries
 1. Create @schema-ui/shared library
-2. Create @schema-ui/sanity library
+2. Create @schema-ui/sanity library (consolidated: client, schemas, queries, studio)
 3. Configure project.json files with build/test/lint targets
 
-### Phase 3: Create Content Libraries
-1. Create @schema-ui/sanity-schemas library
-2. Create @schema-ui/sanity-queries library
-3. Set up proper dependencies between content libraries
-
-### Phase 4: Create Component Libraries
+### Phase 3: Create Component Libraries
 1. Create @schema-ui/ui library
-2. Create @schema-ui/blocks library
+2. Create @schema-ui/blocks library (all content blocks including forms and blog blocks)
 3. Create @schema-ui/layout library
-4. Create @schema-ui/blog library
-5. Create @schema-ui/forms library
-6. Create @schema-ui/studio library
 
 ### Phase 5: Create Application
 1. Create apps/web Next.js application
