@@ -1,12 +1,12 @@
-# Monorepo Migration Plan: Domain-Driven Frontend Modules with Nx
+# Nx Monorepo Migration PRD
 
 ## Overview
 
-This document outlines the plan to migrate the Schema UI Next.js + Sanity starter from a single application structure to a composable, domain-driven frontend modules monorepo using Nx.
+This document outlines the plan to migrate the Schema UI Next.js + Sanity starter from a single application structure to a composable, domain-driven frontend modules monorepo using Nx with pnpm enforcement.
 
 ## Target Architecture
 
-### Workspace Structure (Simplified - 5 Libraries)
+### Workspace Structure (5 Libraries)
 
 ```
 workspace/
@@ -35,7 +35,7 @@ workspace/
 │   │   │   │   └── token.ts
 │   │   │   ├── schemas/        # All schema definitions
 │   │   │   ├── queries/        # All GROQ queries
-│   │   │   ├── presentation/  # Studio presentation
+│   │   │   ├── presentation/   # Studio presentation
 │   │   │   ├── env.ts
 │   │   │   ├── schema.ts
 │   │   │   └── structure.ts
@@ -81,9 +81,32 @@ workspace/
 └── tailwind.config.js          # Shared Tailwind config
 ```
 
-**Note**: See `SIMPLIFIED_STRUCTURE.md` for rationale on why 5 libraries instead of 11.
+## Rationale: Why 5 Libraries?
 
-## Domain Module Breakdown (Simplified)
+### Analysis of Original 11-Library Proposal
+
+After analyzing the codebase, we consolidated from 11 to 5 libraries because:
+
+1. **Sanity is one domain**: Client, schemas, queries, and studio config all serve the same purpose (CMS integration) and are tightly coupled
+2. **All blocks are content blocks**: Hero, grid, split, carousel, forms, blog blocks - they're all rendered by the same `componentMap` in `components/blocks/index.tsx`
+3. **Blog is not a separate domain**: Blog queries are just Sanity queries, blog blocks are just content blocks
+4. **Forms are blocks**: The newsletter form is already in the blocks componentMap
+5. **Layout is separate**: Header/footer are structural components, distinct from content blocks
+
+### Comparison
+
+| Aspect | 11 Libraries | 5 Libraries |
+|--------|--------------|-------------|
+| **Complexity** | High | Low |
+| **Dependencies** | Many to manage | Few, clear |
+| **Build time** | Slower (more projects) | Faster |
+| **Developer experience** | More to navigate | Simpler |
+| **Domain clarity** | Over-segmented | Clear boundaries |
+| **Reusability** | Same | Same |
+
+**Recommendation**: Start with 5 libraries. You can always split later if needed, but it's harder to merge once split.
+
+## Domain Module Breakdown
 
 ### 1. @schema-ui/shared
 **Purpose**: Foundation utilities and types
@@ -153,7 +176,30 @@ workspace/
 - Next.js configuration
 - **Dependencies**: All libraries
 
-## Migration Tasks
+## Dependencies Graph
+
+```
+apps/web
+  └── depends on all libraries
+
+@schema-ui/blocks
+  ├── @schema-ui/ui
+  ├── @schema-ui/sanity
+  └── @schema-ui/shared
+
+@schema-ui/layout
+  ├── @schema-ui/ui
+  ├── @schema-ui/sanity
+  └── @schema-ui/shared
+
+@schema-ui/ui
+  └── @schema-ui/shared
+
+@schema-ui/sanity
+  └── @schema-ui/shared
+```
+
+## Migration Phases
 
 ### Phase 1: Nx Workspace Setup
 1. Initialize Nx workspace with Next.js plugin (using pnpm)
@@ -173,27 +219,27 @@ workspace/
 2. Create @schema-ui/blocks library (all content blocks including forms and blog blocks)
 3. Create @schema-ui/layout library
 
-### Phase 5: Create Application
+### Phase 4: Create Application
 1. Create apps/web Next.js application
 2. Migrate app router pages
 3. Migrate API routes
 4. Migrate public assets
 5. Configure Next.js for monorepo
 
-### Phase 6: Update Imports and Dependencies
+### Phase 5: Update Imports and Dependencies
 1. Update all import statements to use library paths
 2. Configure TypeScript path mappings
 3. Set up Nx dependency graph
 4. Update component imports in blocks library
 
-### Phase 7: Configuration and Build
+### Phase 6: Configuration and Build
 1. Configure Tailwind CSS for each library
 2. Update Next.js config for monorepo
 3. Migrate Sanity typegen configuration
 4. Update package.json scripts
 5. Configure PostCSS for monorepo
 
-### Phase 8: Testing and Documentation
+### Phase 7: Testing and Documentation
 1. Test build commands
 2. Test dev server
 3. Test type-checking
@@ -259,3 +305,11 @@ workspace/
 4. Configure Storybook for component libraries
 5. Set up CI/CD with Nx affected commands
 6. Add library documentation generation
+
+## When to Split Further
+
+Only split if:
+- A library becomes too large (>100 files)
+- You need to publish libraries separately
+- Different teams own different domains
+- You have multiple apps with different needs

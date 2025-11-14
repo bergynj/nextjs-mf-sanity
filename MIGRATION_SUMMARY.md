@@ -7,11 +7,10 @@ This repository will be migrated from a single Next.js application to a composab
 ## Quick Reference
 
 ### Documentation Files
-- **MONOREPO_MIGRATION_PLAN.md** - Architecture overview and domain breakdown
+- **prd/nx-monorepo/README.md** - Complete PRD with architecture, rationale, and migration plan
 - **MIGRATION_FILE_MAPPING.md** - Detailed file mappings and import paths
 - **IMPLEMENTATION_GUIDE.md** - Step-by-step implementation instructions
 - **PNPM_ENFORCEMENT.md** - pnpm enforcement configuration and setup
-- **SIMPLIFIED_STRUCTURE.md** - Rationale for 5-library structure
 - **MIGRATION_SUMMARY.md** - This file (quick reference)
 
 ### Task List
@@ -31,7 +30,7 @@ apps/
 └── web/             # Next.js application
 ```
 
-**Note**: See `SIMPLIFIED_STRUCTURE.md` for rationale on why 5 libraries instead of 11.
+**Note**: See `prd/nx-monorepo/README.md` for complete rationale on why 5 libraries instead of 11.
 
 ## Key Dependencies
 
