@@ -1,0 +1,8 @@
+{
+  "name": "@schema-ui/ui",
+  "version": "0.0.1",
+  "type": "module",
+  "dependencies": {
+    "@schema-ui/shared": "workspace:*"
+  }
+}

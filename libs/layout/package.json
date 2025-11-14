@@ -1,0 +1,10 @@
+{
+  "name": "@schema-ui/layout",
+  "version": "0.0.1",
+  "type": "module",
+  "dependencies": {
+    "@schema-ui/shared": "workspace:*",
+    "@schema-ui/ui": "workspace:*",
+    "@schema-ui/sanity": "workspace:*"
+  }
+}

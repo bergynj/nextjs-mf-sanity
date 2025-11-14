@@ -1,0 +1,33 @@
+{
+  "name": "@schema-ui/sanity",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/sanity/src",
+  "projectType": "library",
+  "tags": ["type:sanity"],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/sanity",
+        "main": "libs/sanity/src/index.ts",
+        "tsConfig": "libs/sanity/tsconfig.json"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc --noEmit -p libs/sanity/tsconfig.json"
+      }
+    },
+    "typegen": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "cd libs/sanity && sanity schema extract && sanity typegen generate"
+      }
+    }
+  }
+}

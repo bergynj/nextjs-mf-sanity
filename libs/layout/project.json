@@ -1,0 +1,27 @@
+{
+  "name": "@schema-ui/layout",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/layout/src",
+  "projectType": "library",
+  "tags": ["type:layout"],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/layout",
+        "main": "libs/layout/src/index.ts",
+        "tsConfig": "libs/layout/tsconfig.json"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc --noEmit -p libs/layout/tsconfig.json"
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "web",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "@schema-ui/shared": "workspace:*",
+    "@schema-ui/sanity": "workspace:*",
+    "@schema-ui/ui": "workspace:*",
+    "@schema-ui/blocks": "workspace:*",
+    "@schema-ui/layout": "workspace:*"
+  }
+}
