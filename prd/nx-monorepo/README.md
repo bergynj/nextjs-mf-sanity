@@ -4,6 +4,22 @@
 
 This document outlines the plan to migrate the Schema UI Next.js + Sanity starter from a single application structure to a composable, domain-driven frontend modules monorepo using Nx with pnpm enforcement.
 
+## Documentation Structure
+
+This PRD provides the high-level architecture and migration plan. For detailed implementation guidance, see the following documents in [`details/`](./details/):
+
+- **[IMPLEMENTATION_GUIDE.md](./details/IMPLEMENTATION_GUIDE.md)** - Step-by-step implementation instructions with commands and actions
+- **[MIGRATION_FILE_MAPPING.md](./details/MIGRATION_FILE_MAPPING.md)** - Detailed file mappings from current structure to monorepo structure
+- **[PNPM_ENFORCEMENT.md](./details/PNPM_ENFORCEMENT.md)** - Complete pnpm enforcement configuration and setup
+- **[MIGRATION_SUMMARY.md](./details/MIGRATION_SUMMARY.md)** - Quick reference guide with key commands and import paths
+
+**How to use these documents:**
+1. Start with this PRD to understand the architecture and rationale
+2. Use **IMPLEMENTATION_GUIDE.md** for step-by-step migration execution
+3. Reference **MIGRATION_FILE_MAPPING.md** when moving files
+4. Follow **PNPM_ENFORCEMENT.md** for package manager setup
+5. Keep **MIGRATION_SUMMARY.md** handy as a quick reference during migration
+
 ## Target Architecture
 
 ### Workspace Structure (5 Libraries)
@@ -253,7 +269,7 @@ apps/web
 - `only-allow` package prevents npm/yarn usage
 - `.npmrc` configures pnpm behavior for monorepo
 - All commands use `pnpm` (e.g., `pnpm nx`, `pnpm install`)
-- See `PNPM_ENFORCEMENT.md` for complete configuration
+- See [PNPM_ENFORCEMENT.md](./details/PNPM_ENFORCEMENT.md) for complete configuration
 
 ### TypeScript Configuration
 - Use `tsconfig.base.json` for shared compiler options

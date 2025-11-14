@@ -2,7 +2,7 @@
 
 This guide provides detailed step-by-step instructions for migrating to the Nx monorepo structure.
 
-**See `prd/nx-monorepo/README.md` for the complete PRD with architecture, rationale, and migration plan.**
+**See [../README.md](../README.md) for the complete PRD with architecture, rationale, and migration plan.**
 
 ## Prerequisites
 

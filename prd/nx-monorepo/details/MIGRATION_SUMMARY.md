@@ -7,10 +7,10 @@ This repository will be migrated from a single Next.js application to a composab
 ## Quick Reference
 
 ### Documentation Files
-- **prd/nx-monorepo/README.md** - Complete PRD with architecture, rationale, and migration plan
-- **MIGRATION_FILE_MAPPING.md** - Detailed file mappings and import paths
-- **IMPLEMENTATION_GUIDE.md** - Step-by-step implementation instructions
-- **PNPM_ENFORCEMENT.md** - pnpm enforcement configuration and setup
+- **[../README.md](../README.md)** - Complete PRD with architecture, rationale, and migration plan
+- **[MIGRATION_FILE_MAPPING.md](./MIGRATION_FILE_MAPPING.md)** - Detailed file mappings and import paths
+- **[IMPLEMENTATION_GUIDE.md](./IMPLEMENTATION_GUIDE.md)** - Step-by-step implementation instructions
+- **[PNPM_ENFORCEMENT.md](./PNPM_ENFORCEMENT.md)** - pnpm enforcement configuration and setup
 - **MIGRATION_SUMMARY.md** - This file (quick reference)
 
 ### Task List
@@ -30,7 +30,7 @@ apps/
 └── web/             # Next.js application
 ```
 
-**Note**: See `prd/nx-monorepo/README.md` for complete rationale on why 5 libraries instead of 11.
+**Note**: See [../README.md](../README.md) for complete rationale on why 5 libraries instead of 11.
 
 ## Key Dependencies
 
@@ -112,7 +112,7 @@ pnpm nx dev web
 pnpm nx graph
 ```
 
-**Note**: pnpm is enforced via `packageManager` field and `only-allow` package. See `PNPM_ENFORCEMENT.md` for details.
+**Note**: pnpm is enforced via `packageManager` field and `only-allow` package. See [PNPM_ENFORCEMENT.md](./PNPM_ENFORCEMENT.md) for details.
 
 ## Critical Configuration Files
 
