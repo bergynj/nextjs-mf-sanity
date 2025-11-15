@@ -1,7 +1,4 @@
 import "server-only";
+import { env } from "@/lib/env";
 
-export const token = process.env.SANITY_API_READ_TOKEN;
-
-if (!token) {
-  throw new Error("Missing SANITY_API_READ_TOKEN");
-}
+export const token = env.SANITY_API_READ_TOKEN;
